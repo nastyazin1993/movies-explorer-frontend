@@ -1,0 +1,122 @@
+.card {
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    border-radius: 6px;
+    background: #222;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+  }
+  
+  .card__header {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px;
+    padding-bottom: 17px;
+
+  }
+  
+  .card__title {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 16px;
+    overflow: hidden;
+    align-self: center;
+    margin: 0;
+    width: 300px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #fff;
+  }
+  
+  .card__time {
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 13px;
+    padding-left: 16px;
+    padding-bottom: 16px;
+    margin: 0;
+    color: #8B8B8B;
+  }
+  
+  .card__image {
+    width: 100%;
+    object-position: center;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity ease-in .2s;
+  }
+  
+  .card__image:hover {
+    opacity: .8;
+  }
+  
+  .card__btn {
+    width: 30px;
+    height: 30px;
+    /* margin: 18px auto; */
+    background-image: url('../../images/heart-icon.svg');
+    background-color: #222222;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    align-self: center;
+    padding: 0;
+    color: #424242;
+    border: none;
+    /*border-radius: 30px; */
+    /* background: #313131; */
+    transition: opacity ease-in .2s;
+    cursor: pointer;
+  }
+  
+  .card__btn:hover {
+    opacity: .8;
+  }
+/*   
+  .card__btn_color_pink {
+    background: #ee3465;
+  } */
+  
+  .card__btn_type_active {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../images/heart-active.svg');
+    color: #424242;
+    border: none;
+    background-color: #222222;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  /* .card__btn_type_cross {
+    background-image: url('../../images/heart-icon.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  } */
+  
+  @media screen and (max-width: 400px) {
+    .card__header {
+      padding: 17px 13px;
+    }
+  
+    .card__title {
+      font-size: 12px;
+      max-width: calc(100% - 50px);
+    }
+  
+    .card__time {
+      font-size: 10px;
+      width: 50px;
+    }
+  
+    .card__btn {
+      margin: 13px auto;
+    }
+    .card__image {
+      max-width: 400px;
+    }
+  }

@@ -1,0 +1,37 @@
+  
+.saved-movies {
+    padding: 0px 70px 80px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .movies__more {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    font-style: normal;
+    line-height: 15px;
+    margin: auto;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    background: #2f2f2f;
+    padding: 0;
+    padding-top: 11px ;
+    padding-bottom: 9px;
+    margin: auto;
+    margin-top: 50px;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 768px) {
+    .saved-movies {
+      padding: 0px 30px 80px;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    .saved-movies {
+      padding: 0px 10px 80px;
+    }
+  }
