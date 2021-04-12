@@ -4,7 +4,9 @@
     margin: 0;
     padding: 70px 0px 10px 0px;
     list-style-type: none;
-    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, 282px);
+    /* grid-template-columns: 1fr 1fr 1fr; */
     gap: 37px 24px;
   }
   @media screen and (max-width: 1024px) {
@@ -18,14 +20,14 @@
 
   @media screen and (max-width: 768px) {
     .cards {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(auto-fill, 339px);
       gap: 35px 24px;
     }
   }
   
   @media screen and (max-width: 500px) {
     .cards {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(auto-fill, 300px);
       row-gap: 13px;
       padding-top: 36px;
     }

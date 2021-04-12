@@ -1,7 +1,9 @@
 .OpenMenu{
     visibility: hidden;
+    display: block;
     opacity: 0;
-    transition: visibility 0.5s, opacity 0.5s ease-in-out;
+    position: absolute;
+    transition: visibility 0.5s, opacity 0s ease-in-out;
 }
 
 .OpenMenuActive{
@@ -27,7 +29,7 @@
     border: 0;
     width: 22px;
     height: 22px;
-    background: url("./../../images/closeButton.svg") no-repeat center, #202020;
+    background: url("./../../images/closeButton.svg") no-repeat center, rgba(0, 0, 0, 0);
     position: absolute;
     right: 38px;
     /* left: 380px; */

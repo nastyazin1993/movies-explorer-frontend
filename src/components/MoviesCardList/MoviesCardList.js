@@ -10,7 +10,10 @@ function MoviesCardList({ initialCards }) {
       <MoviesCard data={item} />
     </li>
   ));
-  return <ul className="cards">{cardElements}</ul>;
+  return (
+    <div className="cards-conteiner"><ul className="cards">{cardElements}</ul></div>
+  
+  )
 }
 
 export default MoviesCardList;
