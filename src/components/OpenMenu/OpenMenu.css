@@ -36,6 +36,11 @@
     top: 38px;
     z-index: 2;
 }
+
+.closeMenuButton:hover{
+  opacity: 0.6;
+}
+
 .menuLink{
     margin-top: 159px;
 }
@@ -44,6 +49,14 @@
     line-height: 12px;
     margin: 0;
     padding-bottom: 28px;
+  }
+
+  .menuLink__text:hover {
+    opacity: 0.6;
+  }
+
+  .menuLink__link:hover {
+    opacity: 0.6;
   }
 
   .menuLink__link {

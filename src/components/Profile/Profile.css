@@ -48,9 +48,17 @@
   color: red;
 }
 
+.profile__input:hover{
+  opacity: 0.6;
+ }
+ 
+ .profile__input:focus{ 
+    border: 1px solid rgb(255, 255, 255); 
+    
+  }
+
 .profile__label {
   width: 100%;
-
   font-family: Inter, Arial, sans-serif;
   font-style: normal;
   font-weight: 500;

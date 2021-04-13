@@ -6,7 +6,7 @@
     background: #222;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
   }
-  
+   
   .card__header {
     display: flex;
     justify-content: space-between;
@@ -57,7 +57,6 @@
   .card__btn {
     width: 30px;
     height: 30px;
-    /* margin: 18px auto; */
     background-image: url('../../images/heart-icon.svg');
     background-color: #222222;
     background-repeat: no-repeat;
@@ -67,19 +66,41 @@
     padding: 0;
     color: #424242;
     border: none;
-    /*border-radius: 30px; */
-    /* background: #313131; */
     transition: opacity ease-in .2s;
     cursor: pointer;
+  }
+
+  .card__btn_hidden {
+    visibility: hidden;
+    width: 30px;
+    height: 30px;
+    background-image: url('../../images/heart-icon.svg');
+    background-color: #222222;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    align-self: center;
+    padding: 0;
+    color: #424242;
+    border: none;
+    transition: opacity ease-in .2s;
+    cursor: pointer;
+  }
+  .card:hover .card__btn_hidden{
+    visibility: visible;
+    width: 12px;
+    height: 30px;
+    background-image: url('../../images/closeButton.svg');
+  }
+
+  .card__btn_hidden:hover{
+    opacity: 0.6;
   }
   
   .card__btn:hover {
     opacity: .8;
   }
-/*   
-  .card__btn_color_pink {
-    background: #ee3465;
-  } */
+
   
   .card__btn_type_active {
     width: 30px;

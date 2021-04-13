@@ -1,10 +1,10 @@
 import React from "react";
+import { useLocation } from "react-router";
 import "./MoviesCard.css";
-// import { useLocation } from "react-router";
 
 function MoviesCard({ data }) {
   const { nameRU, duration, image, saved } = data;
-//   const { pathname } = useLocation();
+  const { pathname } = useLocation();
 //   const cardLikeButtonClassName = (
 //     `${saved ? 'card__btn_type_active' : 'card__btn'}`
 //   );
@@ -17,8 +17,9 @@ function MoviesCard({ data }) {
       <div className="card__header">
         <p className="card__title">{nameRU}</p>
         <button
-        className={
-          `${saved  ? 'card__btn_type_active' : 'card__btn'}`
+        className={(
+          `${saved && pathname === '/saved-movies' ? 'card__btn_hidden' : ''}`) ||
+          `${saved && pathname === '/movies' ? 'card__btn_type_active' : 'card__btn'}` 
         }
 
       >

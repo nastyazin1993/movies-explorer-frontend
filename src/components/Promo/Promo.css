@@ -35,8 +35,9 @@
     }
   
     .promo__text {
-        font-size: 50px;
-        line-height: 58px;
+        font-size: 40px;
+        line-height: 46px;
+        width:auto
     }
 }
   
