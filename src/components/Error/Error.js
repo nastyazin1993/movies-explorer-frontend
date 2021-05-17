@@ -2,7 +2,7 @@ import React from "react";
 import "./Error.css";
 import { useHistory } from "react-router";
 
-function Error({ status = 404, message = "Страница не найдена" }) {
+function Error({ message, status}) {
 
   const history = useHistory();
 

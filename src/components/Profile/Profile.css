@@ -87,6 +87,15 @@
   color: #ee3465;
 }
 
+.form__input-isOk {
+  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+  color: green;
+}
+
 .profile__button-container {
   display: flex;
   align-items: center;

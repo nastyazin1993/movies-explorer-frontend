@@ -95,7 +95,7 @@ function Register({ onRegister }) {
   return (
     <div className="form">
       <div className="form__container">
-        <div className="form__logo"></div>
+      <Link to="/"> <div className="form__logo"></div></Link>
         <h2 className="form__title">Добро пожаловать!</h2>
         <form onSubmit={handleSubmit} className="form__inputs">
           <label htmlFor="name" className="form__label">

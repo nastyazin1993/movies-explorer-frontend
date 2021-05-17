@@ -77,7 +77,7 @@ function Login({ onLogin }) {
   const email = useInput("", { isEmpty: true, isEmail: true });
   const password = useInput("", {
     isEmpty: true,
-    minlength: 8,
+    minlengthError: 8,
     maxlengthError: 30,
   });
  
@@ -90,7 +90,7 @@ function Login({ onLogin }) {
   return (
     <div className="form">
       <div className="form__container">
-        <div className="form__logo"></div>
+      <Link to="/"> <div className="form__logo"></div></Link>
         <h2 className="form__title">Рады видеть!</h2>
         <form onSubmit={handleSubmit} className="form__inputs">
          <label htmlFor="email" className="form__label">
