@@ -48,7 +48,7 @@ function App() {
           setMoviesCards(JSON.parse(localStorage.getItem("allMovies")));
         }
     }
-  }, [history]);
+  }, [history, loggedIn]);
 
   React.useEffect(() => {
     if (loggedIn) {
@@ -79,6 +79,7 @@ function App() {
       })
       .catch(({ status, message }) => {
         setIsLoading(false);
+        console.log({ status, message })
         setError({ status, message });
         history.push("/error");
       });
@@ -262,6 +263,7 @@ function App() {
           <Route path="/signin">
             <Login onLogin={handleLogin} />
           </Route>
+          
         </Switch>
 
         <Main

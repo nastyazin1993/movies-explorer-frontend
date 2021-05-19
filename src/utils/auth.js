@@ -11,8 +11,10 @@ export const register = (password, email, name) =>
     if (res.ok) {
       return res.json();
     }
+    console.log(res)
     return Promise.reject(
-      new Error({ status: res.status, message: "Что-то пошло не так" })
+      // new Error({ status: res.status, message: "Что-то пошло не так" })
+      { status: res.status, message: res.statusText }
     );
   });
 
@@ -29,17 +31,19 @@ export const authorize = (password, email) =>
       if (res.ok) {
         return res.json();
       }
-      return Promise.reject(
-        new Error({ status: res.status, message: "Что-то пошло не так" })
+      return Promise.reject({ status: res.status, message: res.statusText }
+        // new Error({ status: res.status, message: "Что-то пошло не так" })
       );
     })
     .then((data) => {
       localStorage.setItem("jwt", data.token);
-
       return data;
     })
     .catch((err) => {
-      console.log(err.message);
+      console.log(err);
+      return Promise.reject({ status: err.status, message: err.message }
+        // new Error({ status: res.status, message: "Что-то пошло не так" })
+      );
     });
 
 export const getContent = (jwt) =>
