@@ -5,10 +5,11 @@ import "./MoviesCard.css";
 function MoviesCard({ data, cardLikeButton, saved, cardDelete}) {
   const { nameRU, duration, image, movieId, trailerLink} = data;
   const { pathname } = useLocation();
-  
   const handleCardLikeButton = () => {
+    
     if (!saved) {
-      cardLikeButton({
+      cardLikeButton(
+        {
         country: data.country,
         director: data.director,
         duration: data.duration,
@@ -20,7 +21,8 @@ function MoviesCard({ data, cardLikeButton, saved, cardDelete}) {
         nameEN: data.nameEN,
         thumbnail: data.image.url,
         movieId: data.movieId,
-      });
+      }, data
+      );
     } else{
       cardDelete(movieId)
     }
@@ -37,9 +39,9 @@ function MoviesCard({ data, cardLikeButton, saved, cardDelete}) {
               saved && pathname === "/saved-movies" ? "card__btn_hidden" : ""
             }` ||
             `${
-              saved && pathname === "/movies"
-                ? "card__btn_type_active"
-                : "card__btn"
+              !saved && pathname === "/movies"
+                ? "card__btn"
+                : "card__btn_type_active"
             }`
           }
           onClick={handleCardLikeButton}

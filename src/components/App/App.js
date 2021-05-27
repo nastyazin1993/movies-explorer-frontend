@@ -6,11 +6,14 @@ import Login from "../Login/Login";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import * as auth from "../../utils/auth";
 import * as mainApi from "../../utils/MainApi";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import "./App.css";
 import Error from "../Error/Error";
 import Preloader from "../Preloader/Preloader";
 import * as moviesApi from "../../utils/MoviesApi";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import Profile from "../Profile/Profile";
+import Movies from "../Movies/Movies";
 
 function App() {
   const history = useHistory();
@@ -23,6 +26,7 @@ function App() {
   const [usersMoviesCards, setUsersMoviesCards] = React.useState([]);
   const [filters, setFilters] = React.useState({});
   const [error, setError] = React.useState({});
+  const location = useLocation();
 
   React.useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -30,33 +34,20 @@ function App() {
       return;
     }
     if (jwt) {
-      auth
-        .getContent(jwt)
-        .then((data) => {
-          setIsLoading(true);
-          setCurrentUser(data);
-          setLoggedIn(true);
-          setIsLoading(false);
-          history.push("/movies");
-        })
-        .catch(({ status, message }) => {
-          setIsLoading(false);
-          setError({ status, message });
-          history.push("/error");
-        });
-        if (localStorage.getItem("allMovies")) {
-          setMoviesCards(JSON.parse(localStorage.getItem("allMovies")));
-        }
-    }
-  }, [history, loggedIn]);
-
-  React.useEffect(() => {
-    if (loggedIn) {
       setIsLoading(true);
-      mainApi
-        .getMoviesCardList()
-        .then((data) => {
+      Promise.all([auth.getContent(jwt), mainApi.getMoviesCardList(jwt)])
+        .then(([res, data]) => {
+          setLoggedIn(true);
+          setCurrentUser(res);
           setUsersMoviesCards(data);
+          if (JSON.parse(localStorage.getItem("searchMovies")) !== null) {
+            const arrMoviesCards = JSON.parse(
+              localStorage.getItem("searchMovies")
+            );
+            setMoviesCards(arrMoviesCards);
+          }
+          setIsLoading(false);
+          history.push(location.pathname);
         })
         .catch(({ status, message }) => {
           setIsLoading(false);
@@ -64,10 +55,7 @@ function App() {
           history.push("/error");
         });
     }
-    if (localStorage.getItem("allMovies")) {
-      setMoviesCards(JSON.parse(localStorage.getItem("allMovies")));
-    }
-  }, [history, loggedIn, like]);
+  }, [like, history]);
 
   function handleRegister(password, email, name) {
     setIsLoading(true);
@@ -79,7 +67,7 @@ function App() {
       })
       .catch(({ status, message }) => {
         setIsLoading(false);
-        console.log({ status, message })
+        console.log({ status, message });
         setError({ status, message });
         history.push("/error");
       });
@@ -109,14 +97,10 @@ function App() {
       .then((res) => {
         setCurrentUser(res.data);
         setIsLoading(false);
-        setIsOk(true)
-        setTimeout(
-          () => {
-            setIsOk(false)
-          },
-          5 * 1000
-        );
-
+        setIsOk(true);
+        setTimeout(() => {
+          setIsOk(false);
+        }, 5 * 1000);
       })
       .catch(({ status, message }) => {
         setError({ status, message });
@@ -156,7 +140,7 @@ function App() {
             duration,
             year,
             description,
-            image,
+            image: image,
             trailerLink: trailerLink,
             nameRU,
             nameEN,
@@ -164,8 +148,8 @@ function App() {
             movieId: id,
           })
         );
-        
-          localStorage.setItem("allMovies", JSON.stringify(allMovies));
+
+        localStorage.setItem("allMovies", JSON.stringify(allMovies));
         handleFilterAllMovies();
       })
       .catch(({ status, message }) => {
@@ -176,11 +160,9 @@ function App() {
   }
 
   const handleChangeFilters = ({ key, value }) => {
-    setFilters((prev) => {
-     
-      handleFilterAllMovies({ ...prev, [key]: value });
-      return { ...prev, [key]: value };
-
+    setFilters(() => {
+      handleFilterAllMovies({ ...usersMoviesCards, [key]: value });
+      return { ...usersMoviesCards, [key]: value };
     });
   };
 
@@ -193,12 +175,12 @@ function App() {
           filters
         ) || [];
       setMoviesCards(filteredMovies);
+      localStorage.setItem("searchMovies", JSON.stringify(filteredMovies));
       setIsLoading(false);
     } else {
       getAllMovies("");
     }
   };
-
 
   const getFilteredMovies = (movies, { text = "", short = false }) => {
     return movies.filter((item) => {
@@ -219,31 +201,29 @@ function App() {
   };
 
   const handleCardLikeButton = (movie) => {
-    console.log(movie)
     mainApi
       .changeLikeCardStatus(movie)
       .then((data) => {
-        
         if (data) {
-          setUsersMoviesCards(prev => ([...prev, data]));
-          setLike(like + 1)
+          setUsersMoviesCards([...usersMoviesCards, data]);
+          setLike(like + 1);
         }
       })
       .catch((err) => console.log(err));
-  }
+  };
 
   const handleDeleteMovieCard = (movieId) => {
-    const id = usersMoviesCards.find(item => item.movieId === movieId)._id;
+    const id = usersMoviesCards.find((item) => item.movieId === movieId)._id;
     setIsLoading(true);
-    mainApi.deleteMovies(id)
+    mainApi
+      .deleteMovies(id)
       .then(() => {
-        setUsersMoviesCards(prev => prev.filter(item => item._id !== id));
+        setUsersMoviesCards(usersMoviesCards.filter((item) => item._id !== id));
       })
       .catch(({ status, message }) => {
-          setError({ status, message });
-          history.push("/error");
-        },
-      )
+        setError({ status, message });
+        history.push("/error");
+      })
       .finally(() => {
         setIsLoading(false);
       });
@@ -257,27 +237,51 @@ function App() {
           <Route path="/error">
             <Error message={error.message} status={error.status} />
           </Route>
-          <Route path="/signup">
-            <Register onRegister={handleRegister} />
+          <Route exact path="/">
+            <Main />
           </Route>
-          <Route path="/signin">
-            <Login onLogin={handleLogin} />
-          </Route>
-          
+          <ProtectedRoute
+            path="/signup"
+            loggedIn={!loggedIn}
+            component={Register}
+            onRegister={handleRegister}
+          />
+          <ProtectedRoute
+            path="/signin"
+            loggedIn={!loggedIn}
+            component={Login}
+            onLogin={handleLogin}
+          />
         </Switch>
-
-        <Main
-          loggedIn={loggedIn}
-          outAccount={outAccount}
-          moviesCards={moviesCards}
-          isOk={isOk}
-          cards={getFilteredMovies(usersMoviesCards, filters)}
-          onChangeFilters={handleChangeFilters}
-          onUpdateUser={handleUpdateUser}
-          cardLikeButton={handleCardLikeButton}
-          cardDelete={handleDeleteMovieCard}
-          usersMoviesCards={usersMoviesCards}
-        />
+        <Switch>
+          <ProtectedRoute
+            path="/movies"
+            component={Movies}
+            loggedIn={loggedIn}
+            initialCards={moviesCards}
+            onChangeFilters={handleChangeFilters}
+            cardLikeButton={handleCardLikeButton}
+            usersMoviesCards={usersMoviesCards}
+            cardDelete={handleDeleteMovieCard}
+          />
+          <ProtectedRoute
+            path="/saved-movies"
+            component={Movies}
+            loggedIn={loggedIn}
+            initialCards={getFilteredMovies(usersMoviesCards, filters)}
+            cardDelete={handleDeleteMovieCard}
+            onChangeFilters={handleChangeFilters}
+            usersMoviesCards={usersMoviesCards}
+          />
+          <ProtectedRoute
+            path="/profile"
+            component={Profile}
+            loggedIn={loggedIn}
+            onOut={outAccount}
+            onUpdateUser={handleUpdateUser}
+            isOk={isOk}
+          />
+        </Switch>
 
         {isLoading ? <Preloader /> : ""}
       </div>
