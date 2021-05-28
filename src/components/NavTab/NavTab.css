@@ -1,0 +1,23 @@
+.nav {
+    display: flex;
+    background-color: #272727;
+    height: 66px;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav__link{
+    margin: 20px;
+    font-family: Inter, Arial, Helvetica, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 123%;
+    text-decoration-line: underline;
+    color: #FFFFFF;
+
+}
+
+.nav__link:hover {
+    opacity: 0.6;
+  }

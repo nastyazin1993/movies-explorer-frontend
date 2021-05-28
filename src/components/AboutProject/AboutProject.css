@@ -1,0 +1,145 @@
+.aboutProject {
+    padding: 110px 70px;
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutProject__title {
+    margin: 0 0 60px;
+    color: white;
+    font-weight: normal;
+    font-size: 22px;
+    letter-spacing: -0.04em;
+    line-height: 27px;
+    padding-bottom: 23px;
+    border-bottom: 1px solid #DADADA;
+}
+
+.aboutProject__table {
+    display: flex;
+    flex-direction: row;
+}
+
+.aboutProject__cell {
+    margin-bottom: 110px;
+    width: 550px;
+}
+
+.aboutProject__cell:first-child {
+    margin-right: 40px;
+}
+
+.aboutProject__heading {
+    margin-bottom: 26px;
+    color: #fff;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+}
+
+.aboutProject__text {
+    margin: 0;
+    color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.aboutProject__mark {
+    display: flex;
+}
+
+.aboutProject__indicator:first-child {
+    flex-grow: 1;
+}
+
+.aboutProject__one-week {
+    height: 36px;
+    text-align: center;
+    line-height: 17px;
+    font-size: 14px;
+    background: #3DDC84;
+    color: #000;
+    padding: 9px 0;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.aboutProject__indicator:last-child {
+    flex-grow: 4;
+}
+
+.aboutProject__four-week {
+    height: 36px;
+    font-size: 14px;
+    text-align: center;
+    line-height: 17px;
+    padding: 9px 0;
+    box-sizing: border-box;
+    background: #303030;
+    margin: 0;
+}
+
+.aboutProject__development {
+    font-weight: 500;
+    color: #8B8B8B;
+    text-align: center;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 14px 0 0;
+}
+
+@media screen and (max-width: 768px) {
+    .aboutProject {
+        padding: 90px 50px;
+    }
+    
+    .aboutProject__cell {
+        margin-bottom: 93px;
+        width: 319px;
+    }
+    
+    .aboutProject__cell:first-child {
+        margin-right: 30px;
+    }
+    
+    .aboutProject__heading {
+        margin-bottom: 22px;
+    }
+    
+    .aboutProject__text {
+        font-size: 12px;
+        line-height: 18px;
+    }
+    
+}
+@media screen and (max-width: 550px) {
+    .aboutProject {
+        padding: 70px 18px;
+    }
+    .aboutProject__table {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .aboutProject__cell {
+        margin-bottom: 56px;
+        width: 100%;
+    }
+    
+    .aboutProject__cell:first-child {
+        margin-right: 0;
+    }
+    
+    .aboutProject__heading {
+        margin-bottom: 16px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+    
+    .aboutProject__text {
+        font-size: 11px;
+        line-height: 16px;
+    }
+    
+}
